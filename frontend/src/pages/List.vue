@@ -28,3 +28,8 @@
         }
     }
 </script>
+<style>
+    ul li{list-style:none;}
+    ul li h4{color:blue;}
+    button:hover{cursor:pointer;}
+</style>

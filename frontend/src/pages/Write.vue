@@ -1,13 +1,30 @@
 <template>
-    <form action="/write" method="post">
-        <input type="text" name="title"/>
-        <textarea name="content"></textarea>
-        <button type="submit">submit</button>
-    </form>
+    <div>
+        <input type="text" v-model="value.title"/>
+        <textarea v-model="value.content"></textarea>
+        <button v-on:click="submit()">submit</button>
+    </div>
 </template>
 
 <script>
     export default {
+        data : function () {
+             return {
+                value : {}
+            }
+        },
+        methods : {
+            submit : function () {
+                this.$http.post('write', this.value).then(
+                    function (res) {
 
+                        //socket.io - source's
+                    },
+                    function (res) {
+                        console.log('error : ', res);
+                    }
+                );
+            }
+        }
     }
 </script>
