@@ -9,3 +9,4 @@
 2. express.js
 3. vue.js
 4. realm database
+5. socket.io
