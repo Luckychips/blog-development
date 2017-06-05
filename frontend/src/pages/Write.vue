@@ -17,8 +17,9 @@
             submit : function () {
                 this.$http.post('write', this.value).then(
                     function (res) {
-
-                        //socket.io - source's
+                        var data = JSON.parse(res.bodyText);
+                        socket.emit('created', {timestamp : data.created});
+                        location.href = '/';
                     },
                     function (res) {
                         console.log('error : ', res);

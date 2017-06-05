@@ -8,7 +8,11 @@ var server = app.listen(3000);
 global.io = require('socket.io')(server);
 
 global.io.on('connection', function (socket) {
-    console.log('user connection');
+    console.log('user connection : ');
+
+    socket.on('created', function (data) {
+        console.log('created new post : [' + data.timestamp + ']');
+    });
 
     socket.on('disconnect', function () {
         console.log('user disconnection');

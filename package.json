@@ -5,6 +5,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^3.4.0",
     "nodemon": "^1.11.0"
-  }
+  },
+  "scripts": {
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm run dev",
+    "start": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "dependencies": {}
 }

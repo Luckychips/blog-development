@@ -18,8 +18,6 @@ router.get('/list', function (req, res) {
 });
 
 router.post('/write', function (req, res) {
-    console.log('start');
-
     var title = req.body['title'],
         content = req.body['content'],
         timestamp = new Date();
@@ -28,9 +26,7 @@ router.post('/write', function (req, res) {
         global.blog_realm.create('POST', {title: title, content: content, timestamp: timestamp});
     });
 
-    console.log('end');
-
-    res.json({});
+    res.json({created : timestamp});
 });
 
 module.exports = router;
