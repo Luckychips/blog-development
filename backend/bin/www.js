@@ -11,6 +11,7 @@ global.io.on('connection', function (socket) {
     console.log('user connection : ');
 
     socket.on('created', function (data) {
+        socket.broadcast.emit('posted');
         console.log('created new post : [' + data.timestamp + ']');
     });
 

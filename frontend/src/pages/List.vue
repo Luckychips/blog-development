@@ -25,6 +25,18 @@
                     console.log('error : ', res);
                 }
             );
+        },
+        sockets : {
+            posted : function (data) {
+                this.$http.get('list').then(
+                    function (res) {
+                        this.items = res.body.items;
+                    },
+                    function (res) {
+                        console.log('error : ', res);
+                    }
+                );
+            }
         }
     }
 </script>
