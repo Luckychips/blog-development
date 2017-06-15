@@ -1,10 +1,19 @@
 <template>
-    <div id="app">
-        <h2>{{ title }}</h2>
-        <router-link v-bind:to="{name : 'list'}">list</router-link>
-        <router-link v-bind:to="{name : 'write'}">write</router-link>
-
-        <router-view></router-view>
+    <div id="app" class="container">
+        <header>
+            <h3>{{ title }}</h3>
+        </header>
+        <div class="card">
+            <div class="card-block">
+                <router-link v-bind:to="{name : 'list'}" class="custom-tab">list</router-link>
+                <router-link v-bind:to="{name : 'write'}" class="custom-tab">write</router-link>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-block">
+                <router-view></router-view>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -30,4 +39,5 @@
 </script>
 
 <style>
+    @import "assets/css/style.css";
 </style>
