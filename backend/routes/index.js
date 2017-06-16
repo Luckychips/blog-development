@@ -7,7 +7,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
     res.json({
-        title : 'realm blog'
+        title : 'Fante\'s Room'
     });
 });
 
