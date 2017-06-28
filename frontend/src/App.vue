@@ -9,18 +9,15 @@
             </div>
         </div>
         <div class="container">
-            <div class="card">
-                <div class="card-block">
-                    <div class="card-columns">
-                        <div class="card" v-for="item in items">
-                            <div class="card-block">
-                                <img v-bind:src="'http://via.placeholder.com/' + 300 + 'x' + 200"/>
-                                <a v-on:click="get_item(item, $event)" href>
-                                    <h4 class="card-title">{{ item.title }}</h4>
-                                </a>
-                                <p class="card-text">{{ item.content }}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
+            <div class="card-block">
+                <div class="card-columns">
+                    <div class="card" v-for="item in items">
+                        <div class="card-block">
+                            <img v-bind:src="'http://placekitten.com/g/' + item.width + '/' + item.height"/>
+                            <a v-on:click="get_item(item, $event)" href>
+                                <h4 class="card-title">{{ item.title }}</h4>
+                            </a>
+                            <p class="card-text">{{ item.content }}</p>
                         </div>
                     </div>
                 </div>
@@ -39,6 +36,16 @@
                     <label for="example-text-input" class="col-2 col-form-label">title</label>
                     <div class="col-10">
                         <input class="form-control" type="text" id="example-text-input" v-model="value.title"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-width-input" class="col-2 col-form-label">width</label>
+                    <div class="col-4">
+                        <input class="form-control" type="text" id="example-width-input" v-model="value.width"/>
+                    </div>
+                    <label for="example-height-input" class="col-2 col-form-label">height</label>
+                    <div class="col-4">
+                        <input class="form-control" type="text" id="example-height-input" v-model="value.height"/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -72,17 +79,23 @@
             }
         },
         created : function () {
+            //todo
+            //1. image upload
+            //2. keyword search
+            //3. create thumbnail image
+            //4. 1:1 messenger
+            //5. detail data modal
+            //6. search tag
+            //7. profile
+            this.$watch('is_show_modal', function (new_value, old_value) {
+                if (this.is_show_modal) {
+                    this.value = {};
+                }
+            });
+
             this.$http.get('').then(
                 function (res) {
                     this.title = res.body.title;
-                },
-                function (res) {
-                    console.log('error : ', res);
-                }
-            );
-
-            this.$http.get('list').then(
-                function (res) {
                     this.items = res.body.items;
                 },
                 function (res) {
@@ -94,13 +107,23 @@
             get_item : function (item, event) {
                 event.preventDefault();
 
+                console.log(item);
             },
             submit : function () {
                 this.$http.post('write', this.value).then(
                     function (res) {
                         var data = JSON.parse(res.bodyText);
+                        var _T = this;
                         this.$socket.emit('created', {timestamp : data.created});
-                        this.is_show_modal = false;
+                        this.$http.get('list').then(
+                            function (res) {
+                                _T.items = res.body.items;
+                                _T.is_show_modal = false;
+                            },
+                            function (res) {
+                                console.log('error : ', res);
+                            }
+                        );
                     },
                     function (res) {
                         console.log('error : ', res);
