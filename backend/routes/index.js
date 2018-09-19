@@ -7,6 +7,7 @@ var uuid = require('uuid/v4');
 var router = express.Router();
 
 router.get('/', function (req, res) {
+    var items = [];
     res.json({
         title : 'Fante\'s Room',
         items : global.blog_realm.objects('POST').sorted('timestamp', true)
